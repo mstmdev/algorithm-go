@@ -2,7 +2,7 @@ package sort
 
 // SelectionSort 选择排序
 //
-// 算法描述：遍历数组，筛选出最小值放到数组的第一个位置，然后再次遍历剩下的数组，筛选出最小值放到第二个位置，依次类推，直到剩下最后一个元素
+// 算法描述：遍历数组，筛选出最小值放到数组的第一个位置，然后再次遍历剩下的数组，筛选出最小值放到第二个位置，以此类推，直到剩下最后一个元素
 func SelectionSort(nums []int) []int {
 	length := len(nums)
 	if length <= 1 {
@@ -90,6 +90,38 @@ func MergeSort(nums []int) []int {
 	}
 	conquer(numsL, numsR)
 	return combine(numsL, numsR)
+}
+
+// QuickSort 快速排序
+//
+// 算法描述：从数组中选取一个参照数pivot，分别将小于等于pivot的元素排列到pivot的左侧，将大于pivot的元素排列到pivot右侧，
+// 然后对pivot左右两侧的两组分组分别再次选取pivot，并根据上述规则重新分组，
+// 以此类推，直到所有分组的元素个数都小于等于1个为止，排序完成
+func QuickSort(nums []int) []int {
+	length := len(nums)
+	if length <= 1 {
+		return nums
+	}
+	pivotIndex := 0
+	pivot := nums[pivotIndex]
+	for i := 1; i < length; i++ {
+		// 右侧是否有小于等于pivot的元素
+		if nums[i] <= pivot {
+			// 将pivot的位置替换为当前元素的值
+			nums[pivotIndex] = nums[i]
+			// 用pivot后面的这个元素填补当前元素的位置
+			nums[i] = nums[pivotIndex+1]
+			// 将pivot存储在原始位置的后一位
+			pivotIndex++
+			nums[pivotIndex] = pivot
+		}
+	}
+
+	// 递归处理pivot左侧分组
+	QuickSort(nums[:pivotIndex])
+	// 递归处理pivot右侧分组
+	QuickSort(nums[pivotIndex+1:])
+	return nums
 }
 
 // divide 将传入的切片切分为2份

@@ -37,3 +37,12 @@ func BenchmarkMergeSort(b *testing.B) {
 		MergeSort(nums)
 	}
 }
+
+func BenchmarkQuickSort(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	nums := generateNums()
+	for i := 0; i < b.N; i++ {
+		QuickSort(nums)
+	}
+}
