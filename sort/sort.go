@@ -1,6 +1,8 @@
 package sort
 
 // SelectionSort 选择排序
+//
+// 算法描述：遍历数组，筛选出最小值放到数组的第一个位置，然后再次遍历剩下的数组，筛选出最小值放到第二个位置，依次类推，直到剩下最后一个元素
 func SelectionSort(nums []int) []int {
 	length := len(nums)
 	if length <= 1 {
@@ -24,6 +26,10 @@ func SelectionSort(nums []int) []int {
 }
 
 // InsertionSort 插入排序
+//
+// 算法描述：将第一个元素当作一个有序数列，其他的元素为无序数列，依次从无序数列中取出元素，
+// 按照正确的排序插入到有序数列中（从有序数列的末尾开始比对，如果小于有序数列的元素，则交换两者的位置，
+// 从后往前进行对比，直到大于前面的元素或者来到第一个位置），直到无序数列中没有元素为止
 func InsertionSort(nums []int) []int {
 	length := len(nums)
 	if length <= 1 {
@@ -48,6 +54,9 @@ func InsertionSort(nums []int) []int {
 }
 
 // BubbleSort 冒泡排序
+//
+// 算法描述：依次比较相邻两个元素的值，如果前者大于后者，则交换两者的位置，一次比较结束后最大值会在最后一个元素，
+// 即大数往后冒泡，排除已经排序好的最大数，对剩下的数列再次进行比较冒泡，直至全部元素排序完毕
 func BubbleSort(nums []int) []int {
 	length := len(nums)
 	if length <= 1 {
@@ -66,13 +75,15 @@ func BubbleSort(nums []int) []int {
 }
 
 // MergeSort 归并排序
+//
+// 算法描述：将数组通过不断的对半切分，使其变为多个长度小于等于2的小数组，再对每个小型数组分别进行排序，最后将排好序的多个小数组合并为一个有序的大数组
 func MergeSort(nums []int) []int {
 	length := len(nums)
 	if length <= 1 {
 		return nums
 	}
 	numsL, numsR := divide(nums)
-	// 如何切片元素大于4个，那么对切分后的切片进行递归处理
+	// 如果切片元素大于4个，那么对切分后的切片进行递归处理
 	// 即保证通过divide切分之后的2个子切片的元素个数分别都不会超过2个
 	if len(nums) > 4 {
 		return combine(MergeSort(numsL), MergeSort(numsR))
@@ -123,6 +134,7 @@ func combine(numsL []int, numsR []int) []int {
 	return sortNums
 }
 
+// min 返回两个数中的最小值，并告知最小值是否为第二个传入参数y
 func min(x, y int) (minValue int, right bool) {
 	if x > y {
 		return y, true
@@ -130,6 +142,7 @@ func min(x, y int) (minValue int, right bool) {
 	return x, false
 }
 
+// generateNums 返回无序的测试数列以供测试
 func generateNums() []int {
 	return []int{10, 2, 54, 44, 61, -23, 123, 45, -94, 43, 61, 0, 34, 247, 113}
 }
