@@ -28,3 +28,12 @@ func BenchmarkBubbleSort(b *testing.B) {
 		BubbleSort(nums)
 	}
 }
+
+func BenchmarkMergeSort(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	nums := generateNums()
+	for i := 0; i < b.N; i++ {
+		MergeSort(nums)
+	}
+}

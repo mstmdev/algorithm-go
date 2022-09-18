@@ -15,3 +15,7 @@ func TestInsertionSort(t *testing.T) {
 func TestBubbleSort(t *testing.T) {
 	t.Logf("BubbleSort result:%v", BubbleSort(generateNums()))
 }
+
+func TestMergeSort(t *testing.T) {
+	t.Logf("MergeSort result:%v", MergeSort(generateNums()))
+}

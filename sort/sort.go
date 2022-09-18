@@ -65,6 +65,64 @@ func BubbleSort(nums []int) []int {
 	return nums
 }
 
+// MergeSort 归并排序
+func MergeSort(nums []int) []int {
+	length := len(nums)
+	if length <= 1 {
+		return nums
+	}
+	numsL, numsR := divide(nums)
+	// 如何切片元素大于4个，那么对切分后的切片进行递归处理
+	// 即保证通过divide切分之后的2个子切片的元素个数分别都不会超过2个
+	if len(nums) > 4 {
+		return combine(MergeSort(numsL), MergeSort(numsR))
+	}
+	conquer(numsL, numsR)
+	return combine(numsL, numsR)
+}
+
+// divide 将传入的切片切分为2份
+func divide(nums []int) (numsL []int, numsR []int) {
+	length := len(nums)
+	subLen := length / 2
+	numsL = nums[:subLen]
+	numsR = nums[subLen:]
+	return numsL, numsR
+}
+
+// conquer 对两个切片分别进行顺序排序，要求每个切片元素不能超过2个
+func conquer(numsL []int, numsR []int) {
+	if len(numsL) == 2 && numsL[0] > numsL[1] {
+		numsL[0], numsL[1] = numsL[1], numsL[0]
+	}
+
+	if len(numsR) == 2 && numsR[0] > numsR[1] {
+		numsR[0], numsR[1] = numsR[1], numsR[0]
+	}
+}
+
+// combine 将两个切片按照顺序排序组合成一个新切片返回
+func combine(numsL []int, numsR []int) []int {
+	x, y, z := 0, 0, 0
+	length := len(numsL) + len(numsR)
+	sortNums := make([]int, length)
+	for {
+		if z == length {
+			break
+		}
+		// 左侧切片是否已经被处理完毕
+		if x >= len(numsL) || numsL[x] > numsR[y] {
+			sortNums[z] = numsR[y]
+			y++
+		} else {
+			sortNums[z] = numsL[x]
+			x++
+		}
+		z++
+	}
+	return sortNums
+}
+
 func min(x, y int) (minValue int, right bool) {
 	if x > y {
 		return y, true
