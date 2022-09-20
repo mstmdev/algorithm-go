@@ -46,3 +46,12 @@ func BenchmarkQuickSort(b *testing.B) {
 		QuickSort(nums)
 	}
 }
+
+func BenchmarkShellSort(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	nums := generateNums()
+	for i := 0; i < b.N; i++ {
+		ShellSort(nums)
+	}
+}

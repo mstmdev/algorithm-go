@@ -124,6 +124,29 @@ func QuickSort(nums []int) []int {
 	return nums
 }
 
+// ShellSort 希尔排序
+//
+// 算法描述：任意设定一个区间长度x，这里取数组长度的一半，以第一个元素为基准，
+// 分别找出基准之后间隔1个或多个区间长度的元素，将这几个元素和基准元素组成一个分组，使用插入排序对这几个元素进行顺序排序，
+// 以此类推，以第二个元素作为基准，再次获得一个分组，并排序。
+// 当基准元素遍历完之后，我们减少区间长度x的值，这里我们取上一次区间值x的一半作为新的区间长度x，
+// 重复上述操作，直至区间长度小于等于0为止，排序结束。
+func ShellSort(nums []int) []int {
+	length := len(nums)
+	if length <= 1 {
+		return nums
+	}
+	// x为当前间隔长度
+	for x := length / 2; x > 0; x /= 2 {
+		for y := x; y < length; y++ {
+			for z := y - x; z >= 0 && nums[z] > nums[z+x]; z -= x {
+				nums[z], nums[z+x] = nums[z+x], nums[z]
+			}
+		}
+	}
+	return nums
+}
+
 // divide 将传入的切片切分为2份
 func divide(nums []int) (numsL []int, numsR []int) {
 	length := len(nums)
